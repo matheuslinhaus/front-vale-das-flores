@@ -28,7 +28,7 @@
                 <button @click="closePopup">Fechar</button>
             </div>
         </div>
-        
+
     </div>
 </template>
 
@@ -56,8 +56,15 @@ export default {
                 localStorage.setItem("authToken", response.data.token);
                 this.$router.push("/users");
             } catch (error) {
-                console.error('Erro no login:', error.response ? error.response.data : error);
-                this.popupMessage = 'Email ou senha incorretos.';
+                console.error('Erro no login:', error);
+
+                if (!error.response) {
+                    this.popupMessage = 'O servidor está indisponível. Tente novamente mais tarde.';
+                } else if (error.response.status === 401) {
+                    this.popupMessage = 'Email ou senha incorretos.';
+                } else {
+                    this.popupMessage = 'Ocorreu um erro inesperado. Tente novamente.';
+                }
             }
         },
         closePopup() {
