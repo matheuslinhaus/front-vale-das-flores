@@ -147,7 +147,11 @@ export default {
                 this.popupMessage = "Cadastro realizado com sucesso!";
                 setTimeout(() => this.$router.push("/users"), 1000);
             } catch (error) {
-                this.popupMessage = error.message || "Erro no cadastro.";
+                if (error.message.includes("Failed to fetch") || error.message.includes("NetworkError")) {
+                    this.popupMessage = "O servidor está indisponível. Tente novamente mais tarde.";
+                } else {
+                    this.popupMessage = error.message || "Erro no cadastro.";
+                }
             }
         },
         closePopup() {
