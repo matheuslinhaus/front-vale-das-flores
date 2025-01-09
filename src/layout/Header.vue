@@ -1,7 +1,9 @@
 <template>
     <header class="header">
         <div class="logo-container">
-            <div class="logo"></div>
+            <router-link to="/" class="logo-link">
+                <div class="logo"></div>
+            </router-link>
             <span class="logo-text">Vale das Flores</span>
         </div>
         <nav>
