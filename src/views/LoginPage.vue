@@ -62,6 +62,8 @@ export default {
                     this.popupMessage = 'O servidor está indisponível. Tente novamente mais tarde.';
                 } else if (error.response.status === 401) {
                     this.popupMessage = 'Email ou senha incorretos.';
+                }else if (error.response.status === 429) {
+                        this.popupMessage = 'Você excedeu o número máximo de tentativas de login. Por favor, aguarde alguns minutos antes de tentar novamente.';
                 } else {
                     this.popupMessage = 'Ocorreu um erro inesperado. Tente novamente.';
                 }
