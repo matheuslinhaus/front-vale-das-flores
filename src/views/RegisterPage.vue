@@ -61,7 +61,7 @@
 
 <script>
 import "../css/Form.css";
-import "../css/Popup.css"
+import "../css/Popup.css";
 
 export default {
     name: "Register",
@@ -144,6 +144,8 @@ export default {
                     throw new Error("Erro ao cadastrar o usuário.");
                 }
 
+                const data = await response.json();
+                localStorage.setItem("authToken", data.token);
                 this.popupMessage = "Cadastro realizado com sucesso!";
                 setTimeout(() => this.$router.push("/users"), 1000);
             } catch (error) {
