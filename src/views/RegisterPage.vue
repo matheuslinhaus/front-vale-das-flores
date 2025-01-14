@@ -62,6 +62,7 @@
 <script>
 import "../css/Form.css";
 import "../css/Popup.css";
+import api from "../services/api.js"
 
 export default {
     name: "Register",
@@ -111,45 +112,23 @@ export default {
             this.phone = phone;
         },
         async register() {
-            if (!this.isFormValid) {
-                if (!this.isNameValid) {
-                    this.popupMessage = "Por favor, insira o seu primeiro e segundo nome.";
-                    return;
-                }
-                this.popupMessage = "Preencha todos os campos corretamente!";
-                return;
-            }
-
             try {
-                const response = await fetch("http://localhost:8080/api/auth/register", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        name: this.name,
-                        email: this.email,
-                        password: this.password,
-                        phone: this.phone
-                    })
+                const response = await api.post("/api/auth/register", {
+                    name: this.name,
+                    email: this.email,
+                    password: this.password,
+                    phone: this.phone,
                 });
 
-                if (response.status === 400) {
-                    const errorResponse = await response.json();
-                    this.popupMessage = errorResponse.message || "Erro ao cadastrar o usuário.";
-                    return;
-                }
-
-                if (!response.ok) {
-                    throw new Error("Erro ao cadastrar o usuário.");
-                }
-
-                const data = await response.json();
+                const data = response.data;
                 localStorage.setItem("authToken", data.token);
-                this.popupMessage = "Cadastro realizado com sucesso!";
+                this.popupMessage = data.message || "Cadastro realizado com sucesso!";
                 setTimeout(() => this.$router.push("/users"), 1000);
             } catch (error) {
-                if (error.message.includes("Failed to fetch") || error.message.includes("NetworkError")) {
+                if (error.response) {
+                    const errorResponse = error.response.data;
+                    this.popupMessage = errorResponse.message || "Erro ao processar a solicitação.";
+                } else if (error.message.includes("Failed to fetch") || error.message.includes("NetworkError")) {
                     this.popupMessage = "O servidor está indisponível. Tente novamente mais tarde.";
                 } else {
                     this.popupMessage = error.message || "Erro no cadastro.";

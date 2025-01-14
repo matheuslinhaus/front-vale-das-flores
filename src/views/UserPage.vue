@@ -88,7 +88,7 @@
 <script>
 import "../css/Form.css";
 import "../css/Popup.css";
-import axios from "axios";
+import api from "../services/api.js";
 
 export default {
     name: "UserProfile",
@@ -120,8 +120,8 @@ export default {
                     throw new Error("Token de autenticação não encontrado");
                 }
 
-                this.loading = true; // Inicia o carregamento
-                const response = await axios.get("http://localhost:8080/api/user/me", {
+                this.loading = true;
+                const response = await api.get("api/user/me", {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -133,7 +133,7 @@ export default {
                 console.error("Erro ao obter dados do usuário:", this.error);
                 this.popupMessage = "Erro ao carregar os dados do usuário. Tente novamente mais tarde.";
             } finally {
-                this.loading = false; // Finaliza o carregamento
+                this.loading = false;
             }
         },
         async updatePassword() {
@@ -148,8 +148,8 @@ export default {
                     throw new Error("Token de autenticação não encontrado");
                 }
 
-                const response = await axios.put(
-                    "http://localhost:8080/api/user/me/change-password",
+                const response = await api.put(
+                    "api/user/me/change-password",
                     {
                         oldPassword: this.oldPassword,
                         newPassword: this.newPassword,
@@ -178,7 +178,7 @@ export default {
         },
         cancelEdit() {
             this.isEditing = false;
-            this.fetchUserData();  // Recarrega os dados após cancelar
+            this.fetchUserData();
         },
         async updateUserData() {
             try {
@@ -187,8 +187,8 @@ export default {
                     throw new Error("Token de autenticação não encontrado");
                 }
 
-                const response = await axios.put(
-                    "http://localhost:8080/api/user/me",
+                const response = await api.put(
+                    "api/user/me",
                     {
                         name: this.user.name,
                         email: this.user.email,
@@ -201,12 +201,10 @@ export default {
                     }
                 );
 
-                // Atualiza o token
                 if (response.data && response.data.token) {
                     localStorage.setItem("authToken", response.data.token);
                 }
 
-                // Recarrega os dados do usuário com o novo token
                 await this.fetchUserData();
 
                 this.isEditing = false;
