@@ -121,7 +121,7 @@ export default {
                 }
 
                 this.loading = true; // Inicia o carregamento
-                const response = await axios.get("http://localhost:8080/api/auth/user", {
+                const response = await axios.get("http://localhost:8080/api/user/me", {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -131,7 +131,7 @@ export default {
             } catch (error) {
                 this.error = error.response ? error.response.data : error.message;
                 console.error("Erro ao obter dados do usuário:", this.error);
-                this.popupMessage = "Erro ao carregar os dados do usuário. Tente novamente mais tarde."; 
+                this.popupMessage = "Erro ao carregar os dados do usuário. Tente novamente mais tarde.";
             } finally {
                 this.loading = false; // Finaliza o carregamento
             }
@@ -173,7 +173,7 @@ export default {
         },
         cancelEdit() {
             this.isEditing = false;
-            this.fetchUserData();
+            this.fetchUserData();  // Recarrega os dados após cancelar
         },
         async updateUserData() {
             try {
@@ -183,7 +183,7 @@ export default {
                 }
 
                 const response = await axios.put(
-                    "http://localhost:8080/api/auth/user",
+                    "http://localhost:8080/api/user/me",
                     {
                         name: this.user.name,
                         email: this.user.email,
@@ -195,8 +195,15 @@ export default {
                         },
                     }
                 );
+                
+                // Atualiza o token
+                if (response.data && response.data.token) {
+                    localStorage.setItem("authToken", response.data.token);
+                }
 
-                this.user = response.data;
+                // Recarrega os dados do usuário com o novo token
+                await this.fetchUserData();
+
                 this.isEditing = false;
                 this.popupMessage = "Dados atualizados com sucesso!";
             } catch (error) {
@@ -216,10 +223,10 @@ export default {
         },
         confirmLogout() {
             this.logout();
-            this.closeLogoutPopup(); 
+            this.closeLogoutPopup();
         },
         closePopup() {
-            this.popupMessage = null; 
+            this.popupMessage = null;
         }
     },
 };
