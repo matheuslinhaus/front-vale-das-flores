@@ -33,9 +33,9 @@
 </template>
 
 <script>
+import api from '../services/api';
 import "../css/Form.css";
 import "../css/Popup.css";
-import axios from "axios";
 
 export default {
     name: "Login",
@@ -49,23 +49,28 @@ export default {
     methods: {
         async login() {
             try {
-                const response = await axios.post("http://localhost:8080/api/auth/login", {
+                const response = await api.post("api/auth/login", {
                     email: this.email,
                     password: this.password
                 });
                 localStorage.setItem("authToken", response.data.token);
                 this.$router.push("/users");
             } catch (error) {
-                console.error('Erro no login:', error);
-
-                if (!error.response) {
-                    this.popupMessage = 'O servidor está indisponível. Tente novamente mais tarde.';
-                } else if (error.response.status === 401) {
-                    this.popupMessage = 'Email ou senha incorretos.';
-                }else if (error.response.status === 429) {
-                        this.popupMessage = 'Você excedeu o número máximo de tentativas de login. Por favor, aguarde alguns minutos antes de tentar novamente.';
+                console.error("Erro no login:", error);
+                if (error.response) {
+                    switch (error.response.status) {
+                        case 401:
+                            this.popupMessage = "Email ou senha incorretos.";
+                            break;
+                        case 429:
+                            this.popupMessage = "Você excedeu o número máximo de tentativas de login. Por favor, aguarde alguns minutos antes de tentar novamente.";
+                            break;
+                        default:
+                            this.popupMessage = error.response.data.message || "Ocorreu um erro inesperado. Tente novamente.";
+                            break;
+                    }
                 } else {
-                    this.popupMessage = 'Ocorreu um erro inesperado. Tente novamente.';
+                    this.popupMessage = error.message;
                 }
             }
         },
