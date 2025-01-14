@@ -149,7 +149,7 @@ export default {
                 }
 
                 const response = await axios.put(
-                    "http://localhost:8080/api/auth/user/password",
+                    "http://localhost:8080/api/user/me/change-password",
                     {
                         oldPassword: this.oldPassword,
                         newPassword: this.newPassword,
@@ -163,9 +163,14 @@ export default {
 
                 this.popupMessage = "Senha atualizada com sucesso!";
             } catch (error) {
-                this.error = error.response ? error.response.data : error.message;
-                console.error("Erro ao atualizar senha:", this.error);
-                this.popupMessage = "Erro ao atualizar senha.";
+                if (error.response && error.response.data) {
+                    const errorMessage = error.response.data.message || "Erro ao atualizar senha.";
+                    console.error("Erro ao atualizar senha:", errorMessage);
+                    this.popupMessage = errorMessage;
+                } else {
+                    console.error("Erro desconhecido:", error.message);
+                    this.popupMessage = "Erro ao atualizar senha.";
+                }
             }
         },
         startEditing() {
@@ -195,7 +200,7 @@ export default {
                         },
                     }
                 );
-                
+
                 // Atualiza o token
                 if (response.data && response.data.token) {
                     localStorage.setItem("authToken", response.data.token);
