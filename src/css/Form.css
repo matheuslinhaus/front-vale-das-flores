@@ -11,7 +11,11 @@
 }
 
 .container.small {
-    max-width: 400px;
+    max-width: 550px;
+}
+
+.container.large {
+    max-width: 950px;
 }
 
 h2 {
