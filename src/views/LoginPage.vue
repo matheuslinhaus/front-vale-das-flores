@@ -17,7 +17,8 @@
             <button type="submit" :disabled="!email || !password">Entrar</button>
         </form>
 
-        <div class="signup-link">
+        <div class="extra-links">
+            <p><router-link to="/forgot-password">Esqueci a senha</router-link></p>
             <p>Ainda não tem uma conta? <router-link to="/register">Crie uma conta</router-link></p>
         </div>
 
