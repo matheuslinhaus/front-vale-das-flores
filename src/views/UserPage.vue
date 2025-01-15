@@ -161,7 +161,7 @@ export default {
                     }
                 );
 
-                this.popupMessage = "Senha atualizada com sucesso!";
+                this.popupMessage = response.data.message || "Senha atualizada com sucesso!";
             } catch (error) {
                 if (error.response && error.response.data) {
                     const errorMessage = error.response.data.message || "Erro ao atualizar senha.";
@@ -208,7 +208,7 @@ export default {
                 await this.fetchUserData();
 
                 this.isEditing = false;
-                this.popupMessage = "Dados atualizados com sucesso!";
+                this.popupMessage = response.data.message || "Dados atualizados com sucesso!";
             } catch (error) {
                 console.error("Erro ao atualizar dados:", error);
                 this.popupMessage = "Erro ao atualizar dados.";
