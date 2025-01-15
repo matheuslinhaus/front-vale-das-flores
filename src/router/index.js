@@ -6,6 +6,7 @@ import User from "../views/UserPage.vue"
 import Register from "../views/RegisterPage.vue"
 import About from "../views/AboutPage.vue"
 import Contact from "../views/ContactPage.vue"
+import Forgot from "../views/ForgotPasswordPage.vue"
 
 const routes = [
     {
@@ -35,6 +36,10 @@ const routes = [
             {
                 path: "/contact",
                 component: Contact,
+            },
+            {
+                path: "/forgot-password",
+                component: Forgot,
             },
         ],
     },
