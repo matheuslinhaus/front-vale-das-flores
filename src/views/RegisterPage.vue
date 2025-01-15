@@ -122,19 +122,18 @@ export default {
 
                 const data = response.data;
                 localStorage.setItem("authToken", data.token);
-                this.popupMessage = data.message || "Cadastro realizado com sucesso!";
+                this.popupMessage = data.message;
                 setTimeout(() => this.$router.push("/users"), 1000);
             } catch (error) {
-                if (error.response) {
-                    const errorResponse = error.response.data;
-                    this.popupMessage = errorResponse.message || "Erro ao processar a solicitação.";
-                } else if (error.message.includes("Failed to fetch") || error.message.includes("NetworkError")) {
-                    this.popupMessage = "O servidor está indisponível. Tente novamente mais tarde.";
+                if (error.response && error.response.data.message) {
+
+                    this.popupMessage = error.response.data.message;
                 } else {
-                    this.popupMessage = error.message || "Erro no cadastro.";
+                    this.popupMessage = "Erro ao processar a solicitação.";
                 }
             }
         },
+
         closePopup() {
             this.popupMessage = null;
         }

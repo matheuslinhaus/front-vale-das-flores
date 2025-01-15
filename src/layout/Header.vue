@@ -11,13 +11,19 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">Sobre</a></li>
                 <li><a href="/contact">Contato</a></li>
-                <li v-if="isAuthenticated"><a href="/users" >Conta</a></li>
+                <li v-if="isAuthenticated"><a href="/users">Conta</a></li>
                 <li>
                     <a v-if="!isAuthenticated" href="/login">Login</a>
                     <a v-else href="#" @click.prevent="logout">Logout</a>
                 </li>
             </ul>
         </nav>
+        <div class="language-selector">
+            <img src="../assets/bandeira-brasileira.png" alt="Portuguese" class="language-icon"
+                :class="{ 'selected': currentLang === 'pt' }" @click="changeLanguage('pt')" />
+            <img src="../assets/flag-usa.png" alt="English" class="language-icon"
+                :class="{ 'selected': currentLang === 'en' }" @click="changeLanguage('en')" />
+        </div>
     </header>
 </template>
 
@@ -27,6 +33,7 @@ export default {
     data() {
         return {
             isAuthenticated: false,
+            currentLang: localStorage.getItem('lang') || 'pt',
         };
     },
     created() {
@@ -40,6 +47,11 @@ export default {
             localStorage.removeItem("authToken");
             this.checkAuthStatus();
             this.$router.push("/");
+        },
+        changeLanguage(language) {
+            localStorage.setItem('lang', language);
+            this.currentLang = language;
+            window.location.reload();
         }
     },
     watch: {
@@ -58,6 +70,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .logo-container {
@@ -81,7 +94,7 @@ export default {
 .logo-text {
     font-size: 24px;
     font-weight: bold;
-    margin-left: 10px;
+    margin-left: 30px;
 }
 
 nav ul {
@@ -102,5 +115,33 @@ nav ul li a {
 
 nav ul li a:hover {
     text-decoration: underline;
+}
+
+.language-selector {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+}
+
+.language-icon {
+    width: 23px;
+    height: 16px;
+    cursor: pointer;
+    opacity: 0.9;
+    border: 2px solid #fff;
+    border-radius: 80%;
+}
+
+.language-icon:hover {
+    opacity: 1;
+    border-color: #FFD700;
+}
+
+.language-icon.selected {
+    border-color: #FFD700;
+    opacity: 1;
 }
 </style>

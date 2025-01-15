@@ -52,26 +52,16 @@ export default {
             try {
                 const response = await api.post("api/auth/login", {
                     email: this.email,
-                    password: this.password
+                    password: this.password,
                 });
                 localStorage.setItem("authToken", response.data.token);
                 this.$router.push("/users");
             } catch (error) {
                 console.error("Erro no login:", error);
-                if (error.response) {
-                    switch (error.response.status) {
-                        case 401:
-                            this.popupMessage = "Email ou senha incorretos.";
-                            break;
-                        case 429:
-                            this.popupMessage = "Você excedeu o número máximo de tentativas de login. Por favor, aguarde alguns minutos antes de tentar novamente.";
-                            break;
-                        default:
-                            this.popupMessage = error.response.data.message || "Ocorreu um erro inesperado. Tente novamente.";
-                            break;
-                    }
+                if (error.response && error.response.data.message) {
+                    this.popupMessage = error.response.data.message;
                 } else {
-                    this.popupMessage = error.message;
+                    this.popupMessage = "Ocorreu um erro inesperado. Por favor, tente novamente.";
                 }
             }
         },
