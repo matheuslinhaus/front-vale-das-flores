@@ -112,14 +112,7 @@ export default {
     created() {
         this.fetchUserData();
     },
-    methods: {
-        setActiveTab(tab) {
-            this.activeTab = tab;
-        },
-        navigateToAdmin() {
-            this.$router.push("/admin");
-        },
-
+    computed: {
         isAdmin() {
             const token = localStorage.getItem("authToken");
             if (!token) return false;
@@ -128,10 +121,21 @@ export default {
                 const payload = JSON.parse(atob(token.split('.')[1]));
                 return payload.role === 'ADMIN';
             } catch (error) {
+                console.error("Erro ao verificar admin:", error);
                 return false;
             }
         },
-
+    },
+    created() {
+        this.fetchUserData();
+    },
+    methods: {
+        setActiveTab(tab) {
+            this.activeTab = tab;
+        },
+        navigateToAdmin() {
+            this.$router.push("/admin");
+        },
         async fetchUserData() {
             try {
                 const token = localStorage.getItem("authToken");
