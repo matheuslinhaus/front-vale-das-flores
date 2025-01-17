@@ -5,6 +5,9 @@
                 <li @click="setActiveTab('data')" :class="{ active: activeTab === 'data' }">Dados</li>
                 <li @click="setActiveTab('password')" :class="{ active: activeTab === 'password' }">Senha</li>
                 <li @click="setActiveTab('messages')" :class="{ active: activeTab === 'messages' }">Mensagens</li>
+                <li v-if="isAdmin" @click="navigateToAdmin" :class="{ active: activeTab === 'admin' }">
+                    Painel Admin
+                </li>
                 <li @click="openLogoutPopup" class="logout">Sair</li>
             </ul>
         </div>
@@ -113,6 +116,22 @@ export default {
         setActiveTab(tab) {
             this.activeTab = tab;
         },
+        navigateToAdmin() {
+            this.$router.push("/admin");
+        },
+
+        isAdmin() {
+            const token = localStorage.getItem("authToken");
+            if (!token) return false;
+
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                return payload.role === 'ADMIN';
+            } catch (error) {
+                return false;
+            }
+        },
+
         async fetchUserData() {
             try {
                 const token = localStorage.getItem("authToken");
