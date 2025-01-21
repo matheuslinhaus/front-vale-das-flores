@@ -5,6 +5,7 @@
                 <li @click="setActiveTab('data')" :class="{ active: activeTab === 'data' }">Dados</li>
                 <li @click="setActiveTab('password')" :class="{ active: activeTab === 'password' }">Senha</li>
                 <li @click="setActiveTab('messages')" :class="{ active: activeTab === 'messages' }">Mensagens</li>
+                <li @click="navigateToBudget" :class="{ active: activeTab === 'budget' }">Orçamento</li>
                 <li v-if="isAdmin" @click="navigateToAdmin" :class="{ active: activeTab === 'admin' }">
                     Painel Admin
                 </li>
@@ -136,6 +137,10 @@ export default {
         navigateToAdmin() {
             this.$router.push("/admin");
         },
+        navigateToBudget() {
+            this.activeTab = "budget";
+            this.$router.push("/budget");
+        },
         async fetchUserData() {
             try {
                 const token = localStorage.getItem("authToken");
@@ -261,7 +266,7 @@ export default {
 <style scoped>
 .container {
     display: flex;
-    height: 100vh;
+    height: 70vh;
     margin: auto;
 }
 

@@ -7,7 +7,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
     box-sizing: border-box;
-    margin: 70px auto;
+    margin: auto;
 }
 
 .container.small {
@@ -42,16 +42,19 @@ h2 {
     margin-bottom: 8px;
 }
 
-.form-group input {
+.form-group input,
+.form-group textarea {
     width: 94.5%;
     padding: 12px;
     font-size: 16px;
+    font-family: inherit;
     border: 1px solid #ccc;
     border-radius: 8px;
     transition: border 0.3s;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group textarea:focus {
     border-color: #6a7f3d;
     outline: none;
 }
@@ -73,6 +76,29 @@ button:hover {
 }
 
 button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.cancel-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #f2f2f2;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.cancel-button:hover {
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+}
+
+.cancel-button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }

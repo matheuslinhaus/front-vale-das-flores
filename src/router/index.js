@@ -8,6 +8,9 @@ import About from "../views/AboutPage.vue";
 import Contact from "../views/ContactPage.vue";
 import Forgot from "../views/ForgotPasswordPage.vue";
 import Admin from "../views/AdminPage.vue";
+import Budget from "../views/BudgetPage.vue";
+import BudgetNewPage from "../views/BudgetNewPage.vue";
+
 
 const isAuthenticated = () => {
   return localStorage.getItem("authToken") !== null;
@@ -52,6 +55,14 @@ const routes = [
       {
         path: "/contact",
         component: Contact,
+      },
+      {
+        path: "/budget",
+        component: Budget,
+      },
+      {
+        path: "budget/new",
+        component: BudgetNewPage,
       },
       {
         path: "/forgot-password",
