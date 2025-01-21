@@ -10,7 +10,7 @@
           proporcionar a você um ambiente único, com toques de sofisticação e elegância.</p>
         <p><strong>Escolha os melhores arranjos e transforme seu espaço conosco!</strong></p>
 
-        <button class="cta-btn">Veja nossos produtos</button>
+        <button class="cta-btn" @click="navigateToBudget">Solicite um orçamento</button>
       </div>
 
       <div class="image-section">
@@ -37,7 +37,12 @@
 
 <script>
 export default {
-  name: "HomePage"
+  name: "HomePage",
+  methods: {
+    navigateToBudget() {
+      this.$router.push('/budget');
+    },
+  },
 };
 </script>
 
