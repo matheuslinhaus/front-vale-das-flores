@@ -38,20 +38,21 @@
 
 <script>
 import "../css/Form.css";
+
 export default {
     data() {
         return {
-            token: localStorage.getItem('authToken'),
+            token: localStorage.getItem("authToken"),
             form: {
-                title: '',
-                description: '',
+                title: "",
+                description: "",
                 image: null,
             },
         };
     },
     created() {
         if (!this.token) {
-            this.$router.push('/login');
+            this.$router.push("/login");
         }
     },
     methods: {
@@ -59,36 +60,51 @@ export default {
             const file = event.target.files[0];
             this.form.image = file ? file : null;
         },
-        handleSubmit() {
+        async handleSubmit() {
             if (!this.form.image && (!this.form.title || !this.form.description)) {
-                alert('Nome e descrição detalhada são obrigatórios se não houver imagem.');
+                alert("Nome e descrição detalhada são obrigatórios se não houver imagem.");
                 return;
             }
+
             const formData = new FormData();
-            formData.append('title', this.form.title);
-            formData.append('description', this.form.description);
+            formData.append("title", this.form.title);
+            formData.append("description", this.form.description);
             if (this.form.image) {
-                formData.append('image', this.form.image);
+                formData.append("image", this.form.image);
             }
 
-            console.log('Orçamento solicitado:', Object.fromEntries(formData));
-            alert('Sua solicitação de orçamento foi enviada com sucesso!');
+            try {
+                const response = await fetch("http://localhost:8080/api/budgets", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${this.token}`, // Inclua o token de autenticação, se necessário
+                    },
+                    body: formData,
+                });
 
-            this.form = {
-                title: '',
-                description: '',
-                image: null,
-            };
-            this.$refs.imageInput.value = '';
+                if (response.ok) {
+                    alert("Sua solicitação de orçamento foi enviada com sucesso!");
+                    this.resetForm();
+                } else {
+                    const error = await response.json();
+                    alert(`Erro ao enviar orçamento: ${error.message || "Erro desconhecido."}`);
+                }
+            } catch (error) {
+                console.error("Erro ao enviar orçamento:", error);
+                alert("Ocorreu um erro ao processar sua solicitação. Tente novamente.");
+            }
         },
         handleCancel() {
+            this.resetForm();
+            this.$router.push("/budget");
+        },
+        resetForm() {
             this.form = {
-                title: '',
-                description: '',
+                title: "",
+                description: "",
                 image: null,
             };
-            this.$refs.imageInput.value = '';
-            this.$router.push("/budget");
+            this.$refs.imageInput.value = "";
         },
     },
 };
