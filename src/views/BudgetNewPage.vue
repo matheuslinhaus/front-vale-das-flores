@@ -33,11 +33,17 @@
                 <button type="button" @click="handleCancel" class="cancel-button">Cancelar</button>
             </form>
         </div>
+        <div v-if="showPopup" class="popup-backdrop" @click="closePopup">
+            <div class="popup" @click.stop>
+                <p>{{ popupMessage }}</p>
+                <button @click="closePopup">Fechar</button>
+            </div>
+        </div>
     </div>
 </template>
-
 <script>
 import "../css/Form.css";
+import api from "../services/api.js";
 
 export default {
     data() {
@@ -48,6 +54,8 @@ export default {
                 description: "",
                 image: null,
             },
+            showPopup: false,
+            popupMessage: "",
         };
     },
     created() {
@@ -62,7 +70,7 @@ export default {
         },
         async handleSubmit() {
             if (!this.form.image && (!this.form.title || !this.form.description)) {
-                alert("Nome e descrição detalhada são obrigatórios se não houver imagem.");
+                this.showPopupWithMessage("Nome e descrição detalhada são obrigatórios se não houver imagem.");
                 return;
             }
 
@@ -74,24 +82,23 @@ export default {
             }
 
             try {
-                const response = await fetch("http://localhost:8080/api/budgets", {
-                    method: "POST",
+                const response = await api.post("/api/budgets", formData, {
                     headers: {
-                        Authorization: `Bearer ${this.token}`, // Inclua o token de autenticação, se necessário
+                        Authorization: `Bearer ${this.token}`,
                     },
-                    body: formData,
                 });
 
-                if (response.ok) {
-                    alert("Sua solicitação de orçamento foi enviada com sucesso!");
+                if (response.status === 201) {
+                    this.showPopupWithMessage("Seu orçamento foi solicitado!");
                     this.resetForm();
+                    setTimeout(() => this.$router.push("/budget"), 1000);
                 } else {
-                    const error = await response.json();
-                    alert(`Erro ao enviar orçamento: ${error.message || "Erro desconhecido."}`);
+                    this.showPopupWithMessage("Erro ao enviar orçamento.");
                 }
             } catch (error) {
                 console.error("Erro ao enviar orçamento:", error);
-                alert("Ocorreu um erro ao processar sua solicitação. Tente novamente.");
+                const message = error.response?.data?.message || "Erro desconhecido.";
+                this.showPopupWithMessage(`Erro ao enviar orçamento: ${message}`);
             }
         },
         handleCancel() {
@@ -105,6 +112,13 @@ export default {
                 image: null,
             };
             this.$refs.imageInput.value = "";
+        },
+        showPopupWithMessage(message) {
+            this.popupMessage = message;
+            this.showPopup = true;
+        },
+        closePopup() {
+            this.showPopup = false;
         },
     },
 };

@@ -2,9 +2,6 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "https://vale-das-flores-production.up.railway.app/",
-  headers: {
-    "Content-Type": "application/json; charset=UTF-8",
-  },
 });
 
 api.interceptors.response.use(
