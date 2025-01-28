@@ -81,10 +81,15 @@ export default {
                 formData.append("image", this.form.image);
             }
 
+            // Adicionando o token ao FormData
+            if (this.token) {
+                formData.append("token", this.token);
+            }
+
             try {
                 const response = await api.post("/api/budgets", formData, {
                     headers: {
-                        Authorization: `Bearer ${this.token}`,
+                        Authorization: `Bearer ${this.token}`, // Mantendo o token no cabeçalho para consistência
                     },
                 });
 
@@ -100,7 +105,8 @@ export default {
                 const message = error.response?.data?.message || "Erro desconhecido.";
                 this.showPopupWithMessage(`Erro ao enviar orçamento: ${message}`);
             }
-        },
+        }
+        ,
         handleCancel() {
             this.resetForm();
             this.$router.push("/budget");

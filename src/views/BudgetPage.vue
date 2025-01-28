@@ -4,7 +4,7 @@
             <p>Redirecionando para a página de login...</p>
         </div>
         <div v-else class="container large">
-            <h2>Orçamentos Pendentes</h2>
+            <h2>Meus Orçamentos</h2>
 
             <div v-if="loading">
                 <p>Carregando orçamentos...</p>
@@ -20,7 +20,7 @@
                                 <th>Valor</th>
                                 <th>Status</th>
                                 <th>Imagem</th>
-                                <th>Ações</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
