@@ -6,6 +6,20 @@
         <div v-else class="container large">
             <h2>Orçamentos Pendentes</h2>
 
+            <!-- Filtro de Status -->
+            <div class="filter-container">
+                <label for="status">Filtrar por Status: </label>
+                <select v-model="selectedStatus" @change="fetchBudgets">
+                    <option value="">Todos</option>
+                    <option value="REQUESTED">Solicitado</option>
+                    <option value="PENDING_REVIEW">Pendente de Revisão</option>
+                    <option value="REVIEWED">Revisado</option>
+                    <option value="WAITING_APPROVAL">Aguardando Aprovação</option>
+                    <option value="APPROVED">Aprovado</option>
+                    <option value="COMPLETED">Concluído</option>
+                </select>
+            </div>
+
             <div v-if="loading">
                 <p>Carregando orçamentos...</p>
             </div>
@@ -80,6 +94,7 @@ export default {
             },
             budgetToEdit: null,
             canEdit: false,
+            selectedStatus: "", // Novo campo para o filtro de status
         };
     },
     created() {
@@ -90,11 +105,15 @@ export default {
         }
     },
     methods: {
+        // Função para buscar os orçamentos com filtro de status
         async fetchBudgets() {
             try {
                 const response = await api.get("/api/budgets", {
                     headers: {
                         Authorization: `Bearer ${this.token}`,
+                    },
+                    params: {
+                        status: this.selectedStatus, // Passa o status para o backend
                     },
                 });
                 this.budgets = response.data;
@@ -121,7 +140,15 @@ export default {
             return value && value > 0 ? `R$ ${value.toFixed(2).replace('.', ',')}` : "---";
         },
         formatStatus(status) {
-            return status === "REQUESTED" ? "Solicitado" : status;
+            switch (status) {
+                case "REQUESTED": return "Solicitado";
+                case "PENDING_REVIEW": return "Pendente de Revisão";
+                case "REVIEWED": return "Revisado";
+                case "WAITING_APPROVAL": return "Aguardando Aprovação";
+                case "APPROVED": return "Aprovado";
+                case "COMPLETED": return "Concluído";
+                default: return status;
+            }
         },
         handleImageUpload(event) {
             const file = event.target.files[0];
@@ -282,4 +309,11 @@ export default {
 .delete-button:hover {
     background-color: #e53935;
 }
+
+.filter-container select {
+    padding: 5px;
+    font-size: 15px;
+}
+
+
 </style>
