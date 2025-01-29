@@ -52,12 +52,9 @@ export default {
 }
 
 .container {
-  background-color: white; /* Container branco */
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  max-width: 800px;
-  width: 100%;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 h2 {
