@@ -1,15 +1,18 @@
 <template>
-    <div class="container">
+  <div class="page">
+    <div class="content-wrapper">
       <section class="about-us">
         <h2>Quem Somos</h2>
         <p>
-          A Vale das Flores é uma loja de arranjos florais localizada no centro de Ibirama. Nosso objetivo é levar beleza e alegria sua vida, com arranjos únicos e feitos com muito carinho.
+          A Vale das Flores é uma loja de arranjos florais localizada no centro de Ibirama. Nosso objetivo é levar
+          beleza e alegria à sua vida, com arranjos únicos e feitos com muito carinho.
         </p>
       </section>
       <section class="mission">
         <h2>Nossa Missão</h2>
         <p>
-          Nossa missão é proporcionar experiências memoráveis através da arte floral, oferecendo produtos de alta qualidade e um atendimento personalizado.
+          Nossa missão é proporcionar experiências memoráveis através da arte floral, oferecendo produtos de alta
+          qualidade e um atendimento personalizado.
         </p>
       </section>
 
@@ -33,50 +36,27 @@
         </a>
       </section>
     </div>
+  </div>
 </template>
 
-<script>
-export default {
-  name: 'About',
-};
-</script>
-
 <style scoped>
-.about {
-  background-color: #f0f0f0; /* Fundo cinza claro */
-  min-height: 100vh;
-  padding: 40px 20px;
+.page {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding: 20px;
 }
 
-.container {
+.content-wrapper {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-}
-
-h2 {
-  font-size: 2rem;
-  color: #4CAF50; /* Verde para títulos */
-  margin-bottom: 20px;
-  position: relative;
-  display: inline-block;
-}
-
-h2::after {
-  content: '';
-  display: block;
-  width: 50px;
-  height: 3px;
-  background-color: #4CAF50;
-  margin-top: 10px;
+  background-color: transparent;
 }
 
 p {
   font-size: 1.1rem;
-  color: #555; /* Cinza escuro para texto */
+  color: #ffffff;
   margin-bottom: 20px;
 }
 
@@ -86,7 +66,7 @@ ul {
 }
 
 ul li {
-  background-color: #f8f8f8; /* Fundo cinza claro para os itens da lista */
+  background-color: #f8f8f8;
   margin: 10px 0;
   padding: 15px;
   border-radius: 8px;
@@ -105,7 +85,7 @@ ul li:hover {
   display: inline-block;
   margin-top: 10px;
   padding: 12px 24px;
-  background-color: #E1306C; /* Rosa do Instagram */
+  background-color: #E1306C;
   color: white;
   text-decoration: none;
   border-radius: 25px;
@@ -114,13 +94,16 @@ ul li:hover {
 }
 
 .instagram-link:hover {
-  background-color: #C13584; /* Rosa mais escuro no hover */
+  background-color: #C13584;
   transform: scale(1.05);
 }
 
 /* Espaçamento entre as seções */
-.about-us, .mission, .values, .social {
-  margin-bottom: 50px;
+.about-us,
+.mission,
+.values,
+.social {
+  margin-bottom: 30px;
 }
 
 /* Responsividade */

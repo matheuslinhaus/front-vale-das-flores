@@ -1,12 +1,16 @@
 <template>
-  <div class="home-page">
+  <div class="page">
     <div class="content-wrapper">
       <div class="text-section">
-        <h1>Transforme seu ambiente</h1>
-        <p>Com muito carinho, criamos arranjos personalizados que trazem um pedacinho de aconchego e alegria para o seu lar. Cada peça é feita com atenção aos detalhes, para que seu ambiente fique ainda mais especial e acolhedor, do jeitinho que você merece. Tudo isso, diretamente de Ibirama/SC.</p>
+        <h2>Transforme seu ambiente</h2>
+        <p>Com muito carinho, criamos arranjos personalizados que trazem um pedacinho de aconchego e alegria para o seu
+          lar. Cada peça é feita com atenção aos detalhes, para que seu ambiente fique ainda mais especial e acolhedor,
+          do jeitinho que você merece. Tudo isso, diretamente de Ibirama/SC.</p>
 
-        <p>Escolhemos flores e materiais de qualidade, sempre com muito cuidado para garantir que cada arranjo seja bonito e durável.</p>
-<p><strong>Venha nos visitar e descubra como podemos transformar seu espaço com arranjos feitos especialmente para você!</strong></p>
+        <p>Escolhemos flores e materiais de qualidade, sempre com muito cuidado para garantir que cada arranjo seja
+          bonito e durável.</p>
+        <p><strong>Venha nos visitar e descubra como podemos transformar seu espaço com arranjos feitos especialmente
+            para você!</strong></p>
 
 
         <button class="cta-btn" @click="navigateToBudget">Solicite um orçamento</button>
@@ -69,11 +73,6 @@ export default {
   color: white;
   flex-direction: column;
   justify-content: center;
-}
-
-.text-section h1 {
-  font-size: 2.5em;
-  margin-bottom: 15px;
 }
 
 .text-section p {
