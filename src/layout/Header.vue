@@ -11,19 +11,19 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">Sobre</a></li>
                 <li><a href="/contact">Contato</a></li>
-                <li v-if="isAuthenticated"><a href="/users">Conta</a></li>
+                <!-- <li v-if="isAuthenticated"><a href="/users">Conta</a></li>
                 <li>
                     <a v-if="!isAuthenticated" href="/login">Login</a>
                     <a v-else href="#" @click.prevent="logout">Logout</a>
-                </li>
+                </li> -->
             </ul>
         </nav>
-        <div class="language-selector">
+        <!-- <div class="language-selector">
             <img src="../assets/bandeira-brasileira.png" alt="Portuguese" class="language-icon"
                 :class="{ 'selected': currentLang === 'pt' }" @click="changeLanguage('pt')" />
             <img src="../assets/flag-usa.png" alt="English" class="language-icon"
                 :class="{ 'selected': currentLang === 'en' }" @click="changeLanguage('en')" />
-        </div>
+        </div> -->
     </header>
 </template>
 

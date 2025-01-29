@@ -14,6 +14,10 @@
                 <h2>Configurações</h2>
                 <p>Altere configurações gerais do sistema.</p>
             </div>
+            <div class="option-card" @click="navigateTo('admin/budget-list')">
+                <h2>Budgets</h2>
+                <p>Acesse e gerencie a lista de budgets do sistema.</p>
+            </div>
         </div>
     </div>
 </template>
