@@ -17,6 +17,7 @@
                     <option value="WAITING_APPROVAL">Aguardando Aprovação</option>
                     <option value="APPROVED">Aprovado</option>
                     <option value="COMPLETED">Concluído</option>
+                    <option value="CANCELED">Cancelado</option> <!-- Nova opção adicionada -->
                 </select>
             </div>
 
@@ -147,6 +148,7 @@ export default {
                 case "WAITING_APPROVAL": return "Aguardando Aprovação";
                 case "APPROVED": return "Aprovado";
                 case "COMPLETED": return "Concluído";
+                case "CANCELED": return "Cancelado"; // Nova formatação para "Cancelado"
                 default: return status;
             }
         },
@@ -207,7 +209,6 @@ export default {
     },
 };
 </script>
-
 
 <style scoped>
 /* Estilos para os modais de edição e exclusão */
@@ -314,6 +315,4 @@ export default {
     padding: 5px;
     font-size: 15px;
 }
-
-
 </style>

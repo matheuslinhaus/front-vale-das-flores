@@ -8,6 +8,7 @@ import About from "../views/AboutPage.vue";
 import Contact from "../views/ContactPage.vue";
 import Forgot from "../views/ForgotPasswordPage.vue";
 import Admin from "../views/AdminPage.vue";
+import AdminBuget from "../views/AdminBudgetPage.vue";
 import Budget from "../views/BudgetPage.vue";
 import BudgetNewPage from "../views/BudgetNewPage.vue";
 
@@ -83,6 +84,21 @@ const routes = [
           }
         },
       },
+      {
+        path: "/admin/budget-list",
+        component: AdminBuget,
+        beforeEnter: (to, from, next) => {
+          if (isAuthenticated()) {
+            if (isAdmin()) {
+              next();
+            } else {
+              next("/");
+            }
+          } else {
+            next("/login");
+          }
+        },
+      },
     ],
   },
 ];
@@ -90,6 +106,16 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+// Adicionando o beforeEach para redirecionar as páginas não permitidas
+router.beforeEach((to, from, next) => {
+  const allowedRoutes = ['/', '/about', '/contact']; // rotas permitidas
+  if (!allowedRoutes.includes(to.path)) {
+    next('/'); // Redireciona para a página home se a rota não estiver na lista permitida
+  } else {
+    next(); // Permite a navegação para as rotas permitidas
+  }
 });
 
 export default router;

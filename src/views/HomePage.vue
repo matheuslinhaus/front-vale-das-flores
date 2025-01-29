@@ -2,13 +2,12 @@
   <div class="home-page">
     <div class="content-wrapper">
       <div class="text-section">
-        <h1>Transforme seu ambiente com nossos arranjos</h1>
-        <p>Oferecemos <strong>arranjos personalizados</strong> para qualquer ocasião, feitos sob medida para
-          você. Seja para um evento especial ou para decorar o seu dia a dia, nossos arranjos são criados com carinho e
-          qualidade.</p>
-        <p>Cada peça é elaborada com as melhores flores e materiais, garantindo beleza e durabilidade. Nosso objetivo é
-          proporcionar a você um ambiente único, com toques de sofisticação e elegância.</p>
-        <p><strong>Escolha os melhores arranjos e transforme seu espaço conosco!</strong></p>
+        <h1>Transforme seu ambiente</h1>
+        <p>Com muito carinho, criamos arranjos personalizados que trazem um pedacinho de aconchego e alegria para o seu lar. Cada peça é feita com atenção aos detalhes, para que seu ambiente fique ainda mais especial e acolhedor, do jeitinho que você merece. Tudo isso, diretamente de Ibirama/SC.</p>
+
+        <p>Escolhemos flores e materiais de qualidade, sempre com muito cuidado para garantir que cada arranjo seja bonito e durável.</p>
+<p><strong>Venha nos visitar e descubra como podemos transformar seu espaço com arranjos feitos especialmente para você!</strong></p>
+
 
         <button class="cta-btn" @click="navigateToBudget">Solicite um orçamento</button>
       </div>
