@@ -85,8 +85,8 @@ ul li:hover {
   display: inline-block;
   margin-top: 10px;
   padding: 12px 24px;
-  background-color: #E1306C;
-  color: white;
+  background-color: #f1e7a2;
+  color: black;
   text-decoration: none;
   border-radius: 25px;
   font-size: 1rem;
@@ -94,7 +94,7 @@ ul li:hover {
 }
 
 .instagram-link:hover {
-  background-color: #C13584;
+  background-color: #d1ba1d;
   transform: scale(1.05);
 }
 
