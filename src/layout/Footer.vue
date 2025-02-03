@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'Footer'
+  name: 'Footer',
 };
 </script>
 
@@ -18,5 +18,19 @@ export default {
   position: fixed;
   width: 100%;
   bottom: 0;
+  padding: 5px 0;
+  font-size: 12px;
+  opacity: 1;
+}
+
+.footer p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    font-size: 10px;
+    padding: 3px 0;
+  }
 }
 </style>
