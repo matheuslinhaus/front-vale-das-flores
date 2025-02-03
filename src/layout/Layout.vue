@@ -26,6 +26,7 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .content {
@@ -37,5 +38,15 @@ export default {
   margin-right: 80px;
   margin-bottom: 90px;
   border-radius: 15px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .content {
+    margin: 1%;
+    width: 98%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
 }
 </style>

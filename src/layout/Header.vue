@@ -6,24 +6,27 @@
             </router-link>
             <span class="logo-text">Vale das Flores</span>
         </div>
-        <nav>
+
+        <!-- Menu hamburguer (visível apenas no mobile) -->
+        <div class="hamburger-menu" @click="toggleMenu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+        <!-- Menu de navegação -->
+        <nav :class="{ 'active': isMenuVisible }">
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">Sobre</a></li>
                 <li><a href="/contact">Contato</a></li>
                 <!-- <li v-if="isAuthenticated"><a href="/users">Conta</a></li>
-                <li>
-                    <a v-if="!isAuthenticated" href="/login">Login</a>
-                    <a v-else href="#" @click.prevent="logout">Logout</a>
-                </li> -->
+          <li>
+            <a v-if="!isAuthenticated" href="/login">Login</a>
+            <a v-else href="#" @click.prevent="logout">Logout</a>
+          </li> -->
             </ul>
         </nav>
-        <!-- <div class="language-selector">
-            <img src="../assets/bandeira-brasileira.png" alt="Portuguese" class="language-icon"
-                :class="{ 'selected': currentLang === 'pt' }" @click="changeLanguage('pt')" />
-            <img src="../assets/flag-usa.png" alt="English" class="language-icon"
-                :class="{ 'selected': currentLang === 'en' }" @click="changeLanguage('en')" />
-        </div> -->
     </header>
 </template>
 
@@ -34,6 +37,7 @@ export default {
         return {
             isAuthenticated: false,
             currentLang: localStorage.getItem('lang') || 'pt',
+            isMenuVisible: false,
         };
     },
     created() {
@@ -42,6 +46,9 @@ export default {
     methods: {
         checkAuthStatus() {
             this.isAuthenticated = localStorage.getItem("authToken") !== null;
+        },
+        toggleMenu() {
+            this.isMenuVisible = !this.isMenuVisible;
         },
         logout() {
             localStorage.removeItem("authToken");
@@ -71,6 +78,8 @@ export default {
     justify-content: space-between;
     align-items: center;
     position: relative;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .logo-container {
@@ -80,7 +89,6 @@ export default {
 }
 
 .logo {
-    opacity: 1;
     width: 50px;
     height: 50px;
     background-image: url('../assets/logo.jpg');
@@ -117,31 +125,73 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
-.language-selector {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    position: absolute;
-    top: 5px;
-    right: 15px;
-}
-
-.language-icon {
-    width: 23px;
-    height: 16px;
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
     cursor: pointer;
-    opacity: 0.9;
-    border: 2px solid #fff;
-    border-radius: 80%;
+    padding: 10px;
 }
 
-.language-icon:hover {
-    opacity: 1;
-    border-color: #FFD700;
+.hamburger-menu .bar {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
 }
 
-.language-icon.selected {
-    border-color: #FFD700;
+nav.active {
+    display: block;
     opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    nav {
+        display: none;
+        background-color: #6A7F3D;
+        text-align: center;
+        position: absolute;
+        top: 103%;
+        left: 43%;
+        padding-right: 30px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+
+    nav.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    nav ul {
+        padding: 0;
+        display: block;
+    }
+
+    nav ul li {
+        padding: 5px 20px;
+        width: 80%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: #6A7F3D;
+        transition: background-color 0.3s ease;
+    }
+
+    nav ul li a {
+        font-size: 18px;
+        padding: 22px;
+        display: block;
+        color: white;
+        text-decoration: none;
+    }
+
+    nav ul li a:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
 }
 </style>

@@ -7,16 +7,27 @@
           lar. Cada peça é feita com atenção aos detalhes, para que seu ambiente fique ainda mais especial e acolhedor,
           do jeitinho que você merece. Tudo isso, diretamente de Ibirama/SC.</p>
 
+        <div class="mobile-carousel" v-if="isMobile">
+          <div class="image-box">
+            <div class="image-box-background">
+              <div class="carousel-container">
+                <button @click="prevImage" class="carousel-btn prev-btn">‹</button>
+                <img :src="images[currentIndex]" :alt="'Produto ' + (currentIndex + 1)" class="carousel-image" />
+                <button @click="nextImage" class="carousel-btn next-btn">›</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <p>Escolhemos flores e materiais de qualidade, sempre com muito cuidado para garantir que cada arranjo seja
           bonito e durável.</p>
         <p><strong>Venha nos visitar e descubra como podemos transformar seu espaço com arranjos feitos especialmente
             para você!</strong></p>
 
-
         <button class="cta-btn" @click="navigateToBudget">Solicite um orçamento</button>
       </div>
 
-      <div class="image-section">
+      <div class="image-section" v-if="!isMobile">
         <div class="image-box">
           <div class="image-box-background">
             <img src="https://i.imgur.com/RxMbC7I.png" alt="Produto 1" />
@@ -41,16 +52,62 @@
 <script>
 export default {
   name: "HomePage",
+  data() {
+    return {
+      images: [
+        "https://i.imgur.com/RxMbC7I.png",
+        "https://i.imgur.com/nAxB52I.png",
+        "https://i.imgur.com/DhbMERr.png",
+        "https://i.imgur.com/KB8JFJA.png",
+        "https://i.imgur.com/qHr31zr.png",
+        "https://i.imgur.com/ab566g5.png",
+        "https://i.imgur.com/24zvFre.png",
+        "https://i.imgur.com/ImX9krq.png",
+        "https://i.imgur.com/JvXbJoA.png",
+        "https://i.imgur.com/tMZdXGm.png",
+        "https://i.imgur.com/iMROLqr.png",
+        "https://i.imgur.com/KuCIFku.png",
+      ],
+      currentIndex: 0, // Indica a imagem atual no carrossel
+      isMobile: false,
+    };
+  },
+  mounted() {
+    this.isMobile = window.innerWidth <= 768; // Detecta o tamanho da tela
+    window.addEventListener('resize', this.handleResize); // Escuta mudanças no tamanho da tela
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize);
+  },
   methods: {
     navigateToBudget() {
       this.$router.push('/budget');
+    },
+    handleResize() {
+      this.isMobile = window.innerWidth <= 768; // Atualiza o estado com base na largura da tela
+    },
+    // Função para avançar a imagem
+    nextImage() {
+      if (this.currentIndex < this.images.length - 1) {
+        this.currentIndex++;
+      } else {
+        this.currentIndex = 0; // Se estiver na última imagem, volta para a primeira
+      }
+    },
+    // Função para voltar a imagem
+    prevImage() {
+      if (this.currentIndex > 0) {
+        this.currentIndex--;
+      } else {
+        this.currentIndex = this.images.length - 1; // Se estiver na primeira imagem, vai para a última
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-.home-page {
+.page {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -141,5 +198,73 @@ export default {
 
 .image-box-background {
   overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    gap: 20px;
+    flex-direction: column;
+  }
+
+  .text-section,
+  .mobile-carousel {
+    width: 88%;
+    padding: 10px;
+  }
+
+  .text-section h2 {
+    margin-top: 0;
+  }
+
+  .text-section p {
+    margin-bottom: 15px;
+    font-size: 1em;
+  }
+
+  .mobile-carousel {
+    margin-top: 20px;
+  }
+
+  .carousel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 230px;
+    position: relative;
+  }
+
+  .carousel-image {
+    width: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    color: black;
+    border: none;
+    font-size: 3em;
+    cursor: pointer;
+    width: 0px;
+    height: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+  }
+
+  .prev-btn {
+    left: -6px;
+  }
+
+  .next-btn {
+    right: -6px;
+  }
 }
 </style>
