@@ -15,8 +15,24 @@
                 <p>Altere configurações gerais do sistema.</p>
             </div>
             <div class="option-card" @click="navigateTo('admin/budget-list')">
-                <h2>Budgets</h2>
-                <p>Acesse e gerencie a lista de budgets do sistema.</p>
+                <h2>Orçamentos</h2>
+                <p>Acesse e gerencie a lista de Orçamentos do sistema.</p>
+            </div>
+            <div class="option-card" @click="navigateTo('admin/register-product')">
+                <h2>Cadastrar Produto</h2>
+                <p>Acesse e gerencie a lista de produtos do sistema.</p>
+            </div>
+            <div class="option-card" @click="navigateTo('admin/product-color')">
+                <h2>Cadastro de cores</h2>
+                <p>Acesse e gerencie a cor dos produtos.</p>
+            </div>
+            <div class="option-card" @click="navigateTo('admin/product-material')">
+                <h2>Cadastro de materiais</h2>
+                <p>Acesse e gerencie os materiais dos produtos.</p>
+            </div>
+            <div class="option-card" @click="navigateTo('admin/product-type')">
+                <h2>Cadastro de tipo de produto</h2>
+                <p>Acesse e gerencie os tipos dos produtos.</p>
             </div>
         </div>
     </div>

@@ -11,7 +11,10 @@ import Admin from "../views/AdminPage.vue";
 import AdminBuget from "../views/AdminBudgetPage.vue";
 import Budget from "../views/BudgetPage.vue";
 import BudgetNewPage from "../views/BudgetNewPage.vue";
-
+import AdminRegisterProduct from "../views/AdminRegisterProductPage.vue"
+import AdminProductColor from "../views/AdminProductColorPage.vue"
+import AdminProductMaterial from "../views/AdminProductMaterialPage.vue"
+import AdminProductType from "../views/AdminProductTypePage.vue"
 
 const isAuthenticated = () => {
   return localStorage.getItem("authToken") !== null;
@@ -99,6 +102,69 @@ const routes = [
           }
         },
       },
+      {
+        path: "/admin/register-product",
+        component: AdminRegisterProduct,
+        beforeEnter: (to, from, next) => {
+          if (isAuthenticated()) {
+            if (isAdmin()) {
+              next();
+            } else {
+              next("/");
+            }
+          } else {
+            next("/login");
+          }
+        },
+      },
+
+      {
+        path: "/admin/product-color",
+        component: AdminProductColor,
+        beforeEnter: (to, from, next) => {
+          if (isAuthenticated()) {
+            if (isAdmin()) {
+              next();
+            } else {
+              next("/");
+            }
+          } else {
+            next("/login");
+          }
+        },
+      },
+      {
+        path: "/admin/product-material",
+        component: AdminProductMaterial,
+        beforeEnter: (to, from, next) => {
+          if (isAuthenticated()) {
+            if (isAdmin()) {
+              next();
+            } else {
+              next("/");
+            }
+          } else {
+            next("/login");
+          }
+        },
+      },
+
+      {
+        path: "/admin/product-type",
+        component: AdminProductType,
+        beforeEnter: (to, from, next) => {
+          if (isAuthenticated()) {
+            if (isAdmin()) {
+              next();
+            } else {
+              next("/");
+            }
+          } else {
+            next("/login");
+          }
+        },
+      },
+      
     ],
   },
 ];
@@ -108,14 +174,14 @@ const router = createRouter({
   routes,
 });
 
-// Adicionando o beforeEach para redirecionar as páginas não permitidas
-router.beforeEach((to, from, next) => {
-  const allowedRoutes = ['/', '/about', '/contact']; // rotas permitidas
-  if (!allowedRoutes.includes(to.path)) {
-    next('/'); // Redireciona para a página home se a rota não estiver na lista permitida
-  } else {
-    next(); // Permite a navegação para as rotas permitidas
-  }
-});
+// // Adicionando o beforeEach para redirecionar as páginas não permitidas
+// router.beforeEach((to, from, next) => {
+//   const allowedRoutes = ['/', '/about', '/contact']; // rotas permitidas
+//   if (!allowedRoutes.includes(to.path)) {
+//     next('/'); // Redireciona para a página home se a rota não estiver na lista permitida
+//   } else {
+//     next(); // Permite a navegação para as rotas permitidas
+//   }
+// });
 
 export default router;

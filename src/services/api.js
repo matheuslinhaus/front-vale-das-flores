@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localsshost:8080/",
+  baseURL: "http://localhost:8080",
 });
 
 api.interceptors.response.use(
@@ -21,11 +21,5 @@ api.interceptors.response.use(
   }
 );
 
-api.interceptors.request.use(config => {
-  const lang = localStorage.getItem('lang') || 'pt';
-  config.params = config.params || {};
-  config.params.lang = lang;
-  return config;
-});
 
 export default api;

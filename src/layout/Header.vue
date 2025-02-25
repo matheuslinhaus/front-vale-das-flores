@@ -20,8 +20,8 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">Sobre</a></li>
                 <li><a href="/contact">Contato</a></li>
-                <!-- <li v-if="isAuthenticated"><a href="/users">Conta</a></li>
-          <li>
+                 <li v-if="isAuthenticated"><a href="/users">Conta</a></li>
+          <!-- <li>
             <a v-if="!isAuthenticated" href="/login">Login</a>
             <a v-else href="#" @click.prevent="logout">Logout</a>
           </li> -->

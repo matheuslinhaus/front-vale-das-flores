@@ -7,6 +7,8 @@
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
     z-index: 999;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
 }
 
 .popup {
@@ -23,6 +25,30 @@
     text-align: center;
     width: 80%;
     max-width: 400px;
+    opacity: 0;
+    animation: popupScaleIn 0.4s forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes popupScaleIn {
+    0% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
 }
 
 .popup p {
@@ -31,29 +57,65 @@
 
 .popup button {
     padding: 10px 20px;
-    background-color: #6A7F3D;
+    background-color: #797c71;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-size: 16px;
+    max-width: 51%;
 }
 
-.popup button.delete {
-    padding: 10px 20px;
-    background-color: #e53935;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 5px;
+.popup button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .popup button.confirm {
-    padding: 10px 20px;
     background-color: #45a049;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 5px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.popup button.confirm:hover {
+    background-color: #388e3c;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(72, 164, 47, 0.5);
+}
+
+.popup button.delete {
+    background-color: #e53935;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.popup button.delete:hover {
+    background-color: #c62828;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(229, 57, 53, 0.5);
+}
+
+.popup button.cancel {
+    background-color: #a0a0a0;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.popup button.cancel:hover {
+    background-color: #888888;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(160, 160, 160, 0.5);
+}
+
+.popup button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(56, 142, 60, 0.4);
+}
+
+.popup button.delete:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.4);
+}
+
+.popup button.cancel:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(160, 160, 160, 0.4);
 }
